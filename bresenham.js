@@ -21,22 +21,22 @@ function coordenadasbre(event) {
     var dx = x2 - x1;
     var dy = y2 - y1;
     //se verifica cual es mayor y se le suma uno
-    var inc_x = dx >= 0 ? +1 : -1;
-    var inc_y = dy >= 0 ? +1 : -1;
+    var incx = dx >= 0 ? +1 : -1;
+    var incy = dy >= 0 ? +1 : -1;
     //se verifica cual es menor y se le resta 1
     dx = dx < 0 ? -dx : dx;
     dy = dy < 0 ? -dy : dy;
     //se define propiedades del canvas
     var lienzo = document.querySelector("canvas");
     var context = lienzo.getContext("2d");
-    context.fillStyle = "red";
+    context.fillStyle = "orange";
 
     //se ve cual es mayor y en base a eso empezar a marcar la linea
     if (dx >= dy) {
       //se declaran formulas y utilizan formulas
       var d = 2 * dy - dx;
-      var delta_A = 2 * dy;
-      var delta_B = 2 * dy - 2 * dx;
+      var deltaA = 2 * dy;
+      var deltaB = 2 * dy - 2 * dx;
 
       var x = 0;
       var y = 0;
@@ -45,19 +45,19 @@ function coordenadasbre(event) {
         context.fillRect(x + x1, y + y1, 1, 1);
         //dependiendo el resultado se incrementan las variables
         if (d > 0) {
-          d += delta_B;
-          x += inc_x;
-          y += inc_y;
+          d += deltaB;
+          x += incx;
+          y += incy;
         } else {
-          d += delta_A;
-          x += inc_x;
+          d += deltaA;
+          x += incx;
         }
       }
     } else {
        //se declaran formulas y utilizan formulas
       var d = 2 * dx - dy;
-      var delta_A = 2 * dx;
-      var delta_B = 2 * dx - 2 * dy;
+      var deltaA = 2 * dx;
+      var deltaB = 2 * dx - 2 * dy;
 
       var x = 0;
       var y = 0;
@@ -66,12 +66,12 @@ function coordenadasbre(event) {
         context.fillRect(x + x1, y + y1, 1, 1);
         //dependiendo el resultado se incrementan las variables
         if (d > 0) {
-          d += delta_B;
-          x += inc_x;
-          y += inc_y;
+          d += deltaB;
+          x += incx;
+          y += incy;
         } else {
-          d += delta_A;
-          y += inc_y;
+          d += deltaA;
+          y += incy;
         }
       }
     }
