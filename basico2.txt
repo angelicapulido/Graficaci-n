@@ -1,0 +1,474 @@
+function opcion(event) {
+    if (document.getElementById('radio1').checked) {
+      coordenadass(event);
+    }else if (document.getElementById('radio2').checked) {
+      coordenadasdda(event);
+    }else if (document.getElementById('radio3').checked) {
+      coordenadasbre(event);
+    }else if (document.getElementById('radio4').checked) {
+        pruebaa(event);
+    }
+}
+        let cont = 0;
+        
+        let rangox=0, rangoy=0;
+
+        function coordenadass(event) {
+            cont = cont + 1;
+            //tima la primer coordenada
+            if (cont == 1) {
+              x1 = event.clientX -8;
+              y1 = event.clientY -8;
+              var coor = "X: " + x1 + ", Y: " + y1;
+
+              console.log(coor);
+             
+            } else if (cont == 2) {
+                //toma la segunda coordenada
+                cont = 0;
+                //se debe de restar -8 para que la posicion del canvas sea 0,0
+              x2 = event.clientX - 8;
+              y2 = event.clientY - 8;
+              var coor2 = "X2: " + x2 + ", Y2: " + y2;
+
+              console.log(coor2);
+                //se obtiene delta de x y 
+                rangox=Math.abs(x1-x2);
+                rangoy=Math.abs(y1-y2);           
+                console.log("rango x: " + rangox, 
+                           "rango y: " + rangoy);
+                let inicio = 0, fin = 0;
+                
+                //se realizan formulas m y b
+                m = (y2 - y1) / (x2 - x1);
+                b = y1 -(m * x1);
+                console.log("m = " + m,
+                            "b = " + b);
+
+                //para buscar en y
+                if (rangox > rangoy)
+                {
+                    if (x1 > x2)
+                    {
+                        inicio = x2;
+                        fin = x1;
+                    }
+                    else
+                    {
+                        inicio = x1;
+                        fin = x2;
+                    }
+
+                    //se define el canvas y color
+                    var lienzo = document.querySelector("canvas");
+                    var context = lienzo.getContext("2d");
+                    context.fillStyle = "Black";
+                
+                    //se realiza calculos de la coordenadas
+                    for(var i = inicio; i <= fin; i++)
+                    {
+                        Y = (m*i) + b;
+                        redondeo = Math.round(Y);
+                        context.fillRect(i, Y,1,1);
+                        console.log("X"+ i + " " + "Y=" + redondeo);
+                    }
+                }
+                else
+                {
+                    //para buscar en x
+                    if (y1 > y2)
+                    {
+                        inicio = y2;
+                        fin = y1;
+                    }
+                    else
+                    {
+                        inicio = y1;
+                        fin = y2;
+                    }
+                    //se define canvas para colorear en el
+                    var lienzo = document.querySelector("canvas");
+                    var context = lienzo.getContext("2d");
+                    context.fillStyle = "Black";
+                    // se relaizan calculos de las coordenadas
+                    for(var i = inicio; i <= fin; i++)
+                    {
+                        X= (i-b)/m;
+                        redondeo = Math.round(X);
+                        context.fillRect(X, i, 1, 1);
+                        console.log("X= "+ redondeo + " " + "Y= " + i);
+                    }
+
+                }
+            }
+
+        }
+        let contar=1;
+        function pruebaa(event) {
+            //ESQUINEADO DEBE DE SER 1000
+            for (let index =1; index <= 500; index++) {
+            //toma la primer coordenada
+            
+              x1 =0;
+              y1 += 2;
+              var coor = "X: " + x1 + ", Y: " + y1;
+
+              //console.log(coor);
+             
+                //toma la segunda coordenada
+             
+              x2 += 2;
+              y2 = 0;
+              var coor2 = "X2: " + x2 + ", Y2: " + y2;
+
+              //console.log(coor2);
+                //se obtiene delta de x y 
+                rangox=Math.abs(x1-x2);
+                rangoy=Math.abs(y1-y2);           
+                //console.log("rango x: " + rangox, 
+                           //"rango y: " + rangoy);
+                let inicio = 0, fin = 0;
+                
+                //se realizan formulas m y b
+                m = (y2 - y1) / (x2 - x1);
+                b = y1 -(m * x1);
+                console.log("m = " + m,
+                            "b = " + b);
+
+                //para buscar en y
+                if (contar==1)
+                {
+                    if (x1 > x2)
+                    {
+                        inicio = x2;
+                        fin = x1;
+                    }
+                    else
+                    {
+                        inicio = x1;
+                        fin = x2;
+                    }
+
+                    //se define el canvas y color
+                    var lienzo = document.querySelector("canvas");
+                    var context = lienzo.getContext("2d");
+                    context.fillStyle = "black";
+                
+                    //se realiza calculos de la coordenadas
+                    for(var i = inicio; i <= fin; i++)
+                    {
+                        Y = (m*i) + b;
+                        redondeo = Math.round(Y);
+                        context.fillRect(i, Y,1,1);
+                        //console.log("X"+ i + " " + "Y=" + redondeo);
+                    }
+                    contar=0;
+                }
+                else
+                {
+                    //para buscar en x
+                    if (y1 > y2)
+                    {
+                        inicio = y2;
+                        fin = y1;
+                    }
+                    else
+                    {
+                        inicio = y1;
+                        fin = y2;
+                    }
+                    //se define canvas para colorear en el
+                    var lienzo = document.querySelector("canvas");
+                    var context = lienzo.getContext("2d");
+                    context.fillStyle = "pink";
+                    // se relaizan calculos de las coordenadas
+                    for(var i = inicio; i <= fin; i++)
+                    {
+                        X= (i-b)/m;
+                        redondeo = Math.round(X);
+                        context.fillRect(X, i, 1, 1);
+                        //console.log("X= "+ redondeo + " " + "Y= " + i);
+                    }
+                    contar=1;
+
+                }
+            
+            }
+            x2=1000;
+            y1=0;
+            for (let index =1; index <= 500; index++) {
+                //toma la primer coordenada
+                
+                  x1 =1000;
+                  y1 += 2;
+                  var coor = "X: " + x1 + ", Y: " + y1;
+    
+                  //console.log(coor);
+                 
+                    //toma la segunda coordenada
+                 
+                  x2=x2-2;
+                  y2 = 0;
+                  var coor2 = "X2: " + x2 + ", Y2: " + y2;
+    
+                  //console.log(coor2);
+                    //se obtiene delta de x y 
+                    rangox=Math.abs(x1-x2);
+                    rangoy=Math.abs(y1-y2);           
+                    //console.log("rango x: " + rangox, 
+                               //"rango y: " + rangoy);
+                    let inicio = 0, fin = 0;
+                    
+                    //se realizan formulas m y b
+                    m = (y2 - y1) / (x2 - x1);
+                    b = y1 -(m * x1);
+                    //console.log("m = " + m,
+                               // "b = " + b);
+    
+                    //para buscar en y
+                    if (contar==1)
+                    {
+                        if (x1 > x2)
+                        {
+                            inicio = x2;
+                            fin = x1;
+                        }
+                        else
+                        {
+                            inicio = x1;
+                            fin = x2;
+                        }
+    
+                        //se define el canvas y color
+                        var lienzo = document.querySelector("canvas");
+                        var context = lienzo.getContext("2d");
+                        context.fillStyle = "black";
+                    
+                        //se realiza calculos de la coordenadas
+                        for(var i = inicio; i <= fin; i++)
+                        {
+                            Y = (m*i) + b;
+                            redondeo = Math.round(Y);
+                            context.fillRect(i, Y,1,1);
+                            //console.log("X"+ i + " " + "Y=" + redondeo);
+                        }
+                        contar=0
+                    }
+                    else
+                    {
+                        //para buscar en x
+                        if (y1 > y2)
+                        {
+                            inicio = y2;
+                            fin = y1;
+                        }
+                        else
+                        {
+                            inicio = y1;
+                            fin = y2;
+                        }
+                        //se define canvas para colorear en el
+                        var lienzo = document.querySelector("canvas");
+                        var context = lienzo.getContext("2d");
+                        context.fillStyle = "blue";
+                        // se relaizan calculos de las coordenadas
+                        for(var i = inicio; i <= fin; i++)
+                        {
+                            X= (i-b)/m;
+                            redondeo = Math.round(X);
+                            context.fillRect(X, i, 1, 1);
+                            //console.log("X= "+ redondeo + " " + "Y= " + i);
+                        }
+                        contar=1;
+    
+                    }
+                
+                }
+
+                y1=0;
+                y2=0;
+                contar=1;
+                for (let index =1; index <= 350; index++) {
+                    //toma la primer coordenada
+                    
+                      x1=0;
+                      y1 += 2;
+                      var coor = "X: " + x1 + ", Y: " + y1;
+        
+                      //console.log(coor);
+                     //toma la segunda coordenada
+                     
+                      x2=1000;
+                      y2 +=2;
+                      var coor2 = "X2: " + x2 + ", Y2: " + y2;
+        
+                      //console.log(coor2);
+                        //se obtiene delta de x y 
+                        rangox=Math.abs(x1-x2);
+                        rangoy=Math.abs(y1-y2);           
+                        //console.log("rango x: " + rangox, 
+                                  // "rango y: " + rangoy);
+                        let inicio = 0, fin = 0;
+                        
+                        //se realizan formulas m y b
+                        m = (y2 - y1) / (x2 - x1);
+                        b = y1 -(m * x1);
+                       // console.log("m = " + m,
+                                   // "b = " + b);
+        
+                        //para buscar en y
+                        if (contar==1)
+                        {
+                            if (x1 > x2)
+                            {
+                                inicio = x2;
+                                fin = x1;
+                            }
+                            else
+                            {
+                                inicio = x1;
+                                fin = x2;
+                            }
+        
+                            //se define el canvas y color
+                            var lienzo = document.querySelector("canvas");
+                            var context = lienzo.getContext("2d");
+                            context.fillStyle = "yellow";
+                        
+                            //se realiza calculos de la coordenadas
+                            for(var i = inicio; i <= fin; i++)
+                            {
+                                Y = (m*i) + b;
+                                redondeo = Math.round(Y);
+                                context.fillRect(i, Y,1,1);
+                                //console.log("X"+ i + " " + "Y=" + redondeo);
+                            }
+                            contar=0
+                        }
+                        else
+                        {
+                            //para buscar en x
+                            if (y1 > y2)
+                            {
+                                inicio = y2;
+                                fin = y1;
+                            }
+                            else
+                            {
+                                inicio = y1;
+                                fin = y2;
+                            }
+                            //se define canvas para colorear en el
+                            var lienzo = document.querySelector("canvas");
+                            var context = lienzo.getContext("2d");
+                            context.fillStyle = "green";
+                            // se relaizan calculos de las coordenadas
+                            for(var i = inicio; i <= fin; i++)
+                            {
+                                X= (i-b)/m;
+                                redondeo = Math.round(X);
+                                context.fillRect(X, i, 1, 1);
+                                //console.log("X= "+ redondeo + " " + "Y= " + i);
+                            }
+                            contar=1;
+        
+                        }
+                    
+                    }
+
+
+                x1=0;
+                x2=0;
+                contar=1;
+                for (let index =1; index <= 350; index++) {
+                    //toma la primer coordenada
+                    
+                      x1+=2;
+                      y1= 0;
+                      var coor = "X: " + x1 + ", Y: " + y1;
+        
+                      console.log(coor);
+                     
+                        //toma la segunda coordenada
+                     
+                      x2+=2;
+                      y2 =1000;
+                      var coor2 = "X2: " + x2 + ", Y2: " + y2;
+        
+                      console.log(coor2);
+                        //se obtiene delta de x y 
+                        rangox=Math.abs(x1-x2);
+                        rangoy=Math.abs(y1-y2);           
+                        console.log("rango x: " + rangox, 
+                                   "rango y: " + rangoy);
+                        let inicio = 0, fin = 0;
+                        
+                        //se realizan formulas m y b
+                        m = (y2 - y1) / (x2 - x1);
+                        b = y1 -(m * x1);
+                        console.log("m = " + m,
+                                    "b = " + b);
+        
+                        //para buscar en y
+                        if (contar==1)
+                        {
+                            if (x1 > x2)
+                            {
+                                inicio = x2;
+                                fin = x1;
+                            }
+                            else
+                            {
+                                inicio = x1;
+                                fin = x2;
+                            }
+        
+                            //se define el canvas y color
+                            var lienzo = document.querySelector("canvas");
+                            var context = lienzo.getContext("2d");
+                            context.fillStyle = "orange";
+                        
+                            //se realiza calculos de la coordenadas
+                            for(var i = inicio; i <= fin; i++)
+                            {
+                                Y = (m*i) + b;
+                                redondeo = Math.round(Y);
+                                context.fillRect(i, Y,1,1);
+                                console.log("X"+ i + " " + "Y=" + redondeo);
+                            }
+                            contar=0
+                        }
+                        else
+                        {
+                            //para buscar en x
+                            if (y1 > y2)
+                            {
+                                inicio = y2;
+                                fin = y1;
+                            }
+                            else
+                            {
+                                inicio = y1;
+                                fin = y2;
+                            }
+                            //se define canvas para colorear en el
+                            var lienzo = document.querySelector("canvas");
+                            var context = lienzo.getContext("2d");
+                            context.fillStyle = "white";
+                            // se relaizan calculos de las coordenadas
+                            for(var i = inicio; i <= fin; i++)
+                            {
+                                X= (i-b)/m;
+                                redondeo = Math.round(X);
+                                context.fillRect(X, i, 1, 1);
+                                console.log("X= "+ redondeo + " " + "Y= " + i);
+                            }
+                            contar=1;
+        
+                        }
+                    
+                    }
+            
+        }
+      
+       
